@@ -57,3 +57,248 @@
 </body>
 
 </html>
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+<!-- Include link to a manifest file to ensure app like behaviour
+-->
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+
+<link rel="apple-touch-icon" href="launch.png">
+
+<link rel="apple-touch-startup-image" href="launch.png">
+<meta name="apple-mobile-web-app-title" content="Infrared">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="jquery.mobile.css" />
+  <link rel="stylesheet" href="jobs.css" />
+  <link rel="stylesheet" href="jquery.mobile.icons.min.css" />
+
+<script  src="jquery.js"></script>
+<script  src="jquery.mobile.js"></script>
+
+<script type="text/coffeescript" >
+$ ->
+  timeScale = 1000
+  startPulseTime = 2.4/timeScale
+  logic1PulseTime = 1.2/timeScale
+  logic0PulseTime = 0.6/timeScale
+  pulseSeparatorTime = 0.6/timeScale
+  byte=0
+
+  if ('webkitAudioContext' in window)
+    audioCtx = new webkitAudioContext()
+  else
+    audioCtx = new AudioContext()
+
+  oscillator = audioCtx.createOscillator()
+  oscillator.frequency.value = 19000
+
+  oscillatorR = audioCtx.createOscillator()
+  oscillatorR.frequency.value = 19000
+
+  if ('webkitAudioContext' in window)
+    gainNode = audioCtx.createGainNode()
+    gainNodeR = audioCtx.createGainNode()
+  else
+    gainNode = audioCtx.createGain()
+    gainNodeR = audioCtx.createGain()
+
+  if ('webkitAudioContext' in window)
+    oscillator.noteOn(0)
+    oscillatorR.noteOn(0)
+  else
+    t=audioCtx.currentTime
+    oscillator.start(t)
+    oscillatorR.start(t+0.00002632)
+
+  oscillator.connect(gainNode)
+  oscillatorR.connect(gainNodeR)
+  merger = audioCtx.createChannelMerger(2)
+
+  gainNode.connect(merger, 0, 0)
+  gainNodeR.connect(merger, 0, 1)
+
+  merger.connect(audioCtx.destination)
+
+  t=audioCtx.currentTime
+
+  playPulse = (pulseTime) ->
+    t += pulseSeparatorTime
+    #alert t
+    gainNode.gain.setValueAtTime(1.0, t)
+    gainNodeR.gain.setValueAtTime(1.0, t)
+    t += pulseTime
+    gainNode.gain.setValueAtTime(0.0, t)
+    gainNodeR.gain.setValueAtTime(0.0, t)
+
+  playData = () ->
+    byte=$("#byte").val()*1  # convert text to a number
+    bitSequence= (byte).toString(2)  # convert number to a binary string
+    bitSequence= bitSequence.split("").reverse().join("").toString()  # reverse data bits - lowest first
+    bitSequence += "00000000".substr(0,7-bitSequence.length)   # add 0s to make 7 data bits
+    bitSequence += "10000"  # add 5 device bits
+    #alert bitSequence
+    t=audioCtx.currentTime
+    playPulse(startPulseTime)
+    for bit in bitSequence
+      if bit is "1"
+        playPulse(logic1PulseTime)
+      else
+        playPulse(logic0PulseTime)
+
+
+  $("#play").on "click", ->
+     playData()
+
+
+
+</script>
+<script type="text/javascript" src="coffeescript.js"></script>
+
+</head>
+<body>
+<div id="pageAudio" data-role="page">
+  <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a" >
+      <h1 data-theme="a">Using WebAudio in HTML5</h1>
+  </div>
+  <div data-role="content" style="margin-top: 30px;margin-bottom: 30px;">
+Infrared developments<br>
+<br>
+
+<input type="number" id="byte"  min="1" max="256" value="5">byte</input>
+  <button id="play"   data-theme="b">play</button>
+  </div>
+</div>
+</body>
+</html>
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+
+<link rel="apple-touch-icon" href="launch.png">
+
+<link rel="apple-touch-startup-image" href="launch.png">
+<meta name="apple-mobile-web-app-title" content="Infrared">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="jquery.mobile.css" />
+  <link rel="stylesheet" href="jobs.css" />
+  <link rel="stylesheet" href="jquery.mobile.icons.min.css" />
+
+<script  src="jquery.js"></script>
+<script  src="jquery.mobile.js"></script>
+
+<script type="text/coffeescript" >
+$ ->
+  timeScale = 1000
+  startPulseTime = 2.4/timeScale
+  logic1PulseTime = 1.2/timeScale
+  logic0PulseTime = 0.6/timeScale
+  pulseSeparatorTime = 0.6/timeScale
+  byte=0
+
+  if ('webkitAudioContext' in window)
+    audioCtx = new webkitAudioContext()
+  else
+    audioCtx = new AudioContext()
+
+  oscillator = audioCtx.createOscillator()
+  oscillator.frequency.value = 19000
+
+  oscillatorR = audioCtx.createOscillator()
+  oscillatorR.frequency.value = 19000
+
+  if ('webkitAudioContext' in window)
+    gainNode = audioCtx.createGainNode()
+    gainNodeR = audioCtx.createGainNode()
+  else
+    gainNode = audioCtx.createGain()
+    gainNodeR = audioCtx.createGain()
+
+  if ('webkitAudioContext' in window)
+    oscillator.noteOn(0)
+    oscillatorR.noteOn(0)
+  else
+    t=audioCtx.currentTime
+    oscillator.start(t)
+    oscillatorR.start(t+0.00002632)
+
+  oscillator.connect(gainNode)
+  oscillatorR.connect(gainNodeR)
+  merger = audioCtx.createChannelMerger(2)
+
+  gainNode.connect(merger, 0, 0)
+  gainNodeR.connect(merger, 0, 1)
+
+  merger.connect(audioCtx.destination)
+
+  t=audioCtx.currentTime
+
+  playPulse = (pulseTime) ->
+    t += pulseSeparatorTime
+    #alert t
+    gainNode.gain.setValueAtTime(1.0, t)
+    gainNodeR.gain.setValueAtTime(1.0, t)
+    t += pulseTime
+    gainNode.gain.setValueAtTime(0.0, t)
+    gainNodeR.gain.setValueAtTime(0.0, t)
+
+  playData = () ->
+    byte=$("#byte").val()*1  # convert text to a number
+    bitSequence= (byte).toString(2)  # convert number to a binary string
+    bitSequence= bitSequence.split("").reverse().join("").toString()  # reverse data bits - lowest first
+    bitSequence += "00000000".substr(0,7-bitSequence.length)   # add 0s to make 7 data bits
+    bitSequence += "10000"  # add 5 device bits
+    #alert bitSequence
+    t=audioCtx.currentTime
+    playPulse(startPulseTime)
+    for bit in bitSequence
+      if bit is "1"
+        playPulse(logic1PulseTime)
+      else
+        playPulse(logic0PulseTime)
+
+
+  $("#play").on "click", ->
+     playData()
+
+
+
+</script>
+<script type="text/javascript" src="coffeescript.js"></script>
+
+</head>
+<body>
+<div id="pageAudio" data-role="page">
+  <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a" >
+      <h1 data-theme="a">Train Control</h1>
+  </div>
+  <div data-role="content" style="margin-top: 30px;margin-bottom: 30px;">
+Infrared developments<br>
+<br>
+
+<input type="number" id="byte"  min="1" max="256" value="5">byte</input>
+  <button id=“slower”   data-theme="b">slower</button>
+  </div>
+</div>
+</body>
+</html>
