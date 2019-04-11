@@ -126,10 +126,10 @@
           gainNodeR = audioCtx.createGain()
       }
 
-       // if ('webkitAudioContext' in window) {
-      //    oscillator.noteOn(0)
-      //    oscillatorR.noteOn(0)
-     //   } else {
+        if ('webkitAudioContext' in window) {
+        oscillator.noteOn(0)
+       oscillatorR.noteOn(0)
+       } 
 
           t = audioCtx.currentTime
           oscillator.start(t)
