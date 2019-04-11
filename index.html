@@ -100,9 +100,9 @@
 
       setUp = () => {
         setUpDone = true;
-        if ('webkitAudioContext' in window)
-          audioCtx = new webkitAudioContext()
-        else
+        //if ('webkitAudioContext' in window)
+        //  audioCtx = new webkitAudioContext()
+        //else
           audioCtx = new AudioContext()
 
         oscillator = audioCtx.createOscillator()
@@ -111,18 +111,18 @@
         oscillatorR = audioCtx.createOscillator()
         oscillatorR.frequency.value = 19000
 
-        if ('webkitAudioContext' in window) {
-          gainNode = audioCtx.createGainNode()
-          gainNodeR = audioCtx.createGainNode()
-        } else {
+       // if ('webkitAudioContext' in window) {
+       //   gainNode = audioCtx.createGainNode()
+      //   gainNodeR = audioCtx.createGainNode()
+       // } else {
           gainNode = audioCtx.createGain()
           gainNodeR = audioCtx.createGain()
-        }
+       // }
 
-        if ('webkitAudioContext' in window) {
-          oscillator.noteOn(0)
-          oscillatorR.noteOn(0)
-        } else {
+       // if ('webkitAudioContext' in window) {
+      //    oscillator.noteOn(0)
+      //    oscillatorR.noteOn(0)
+     //   } else {
 
           t = audioCtx.currentTime
           oscillator.start(t)
@@ -138,7 +138,7 @@
           merger.connect(audioCtx.destination)
 
           t = audioCtx.currentTime
-        }
+       // }
       }
     }
 
