@@ -105,11 +105,12 @@
 
       setUp = () => {
         setUpDone = true;
-        console.log("in set up")
+        alert("in set up")
         //if ('webkitAudioContext' in window)
         //  audioCtx = new webkitAudioContext()
         //else
           audioCtx = new AudioContext()
+          alert(`audio context: ${audioCtx}`)
 
         oscillator = audioCtx.createOscillator()
         oscillator.frequency.value = 440//19000
@@ -140,13 +141,13 @@
 
           gainNode.connect(merger, 0, 0)
           gainNodeR.connect(merger, 0, 1)
-          console.log(gainNode)
+          alert(gainNode)
 
           merger.connect(audioCtx.destination)
 
           t = audioCtx.currentTime
        // }
-        alert(`set up completed with audio context: ${audioCtx}`)
+      
       }
     }
 
