@@ -106,9 +106,9 @@
       setUp = () => {
         setUpDone = true;
         alert("in set up")
-        //if ('webkitAudioContext' in window)
-        //  audioCtx = new webkitAudioContext()
-        //else
+       if ('webkitAudioContext' in window)
+        audioCtx = new webkitAudioContext()
+       else
           audioCtx = new AudioContext()
           alert(`audio context: ${audioCtx}`)
 
@@ -118,13 +118,13 @@
         oscillatorR = audioCtx.createOscillator()
         oscillatorR.frequency.value = 440//19000
 
-       // if ('webkitAudioContext' in win    dow) {
-       //   gainNode = audioCtx.createGainNode()
-      //   gainNodeR = audioCtx.createGainNode()
-       // } else {
+        if ('webkitAudioContext' in window) {
+        gainNode = audioCtx.createGainNode()
+        gainNodeR = audioCtx.createGainNode()
+        } else {
           gainNode = audioCtx.createGain()
           gainNodeR = audioCtx.createGain()
-       // }
+      }
 
        // if ('webkitAudioContext' in window) {
       //    oscillator.noteOn(0)
@@ -208,7 +208,7 @@ console.log(str)
     <button id="bit1" class="buttonGroup8">0</button>
     <button id="bit0" class="buttonGroup8">0</button>
   </div>
-      <button id="setup" class="button">set up</button>
+      <button id="setup" class="button">set up 2</button>
 
 
 </body>
