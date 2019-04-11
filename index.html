@@ -83,6 +83,9 @@
         if (b7.innerHTML=="0") {b7.innerHTML="1";setBit(7,1)} else {{b7.innerHTML="0";setBit(7,0)}}
       });
 
+            document.getElementById("setup").addEventListener("click", () => {
+        setUp()
+      });
 
       setBit = (b,s) => { //toogles the bit
         var mask = 1 << b;
@@ -203,6 +206,8 @@ console.log(str)
     <button id="bit1" class="buttonGroup8">0</button>
     <button id="bit0" class="buttonGroup8">0</button>
   </div>
+      <button id="setup" class="button">set up</button>
+
 
 </body>
 
