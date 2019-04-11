@@ -29,6 +29,18 @@
       padding: 2% 2%;
       text-align: left;
     }
+
+    .buttonGroup8 {
+      background-color: black;
+      color: red;
+      font-family: verdana;
+      font-size: 7vw;
+      border: 1px solid red;
+      padding: 2% 2%;
+      text-align: left;
+      width: 10%;
+    }
+
   </style>
 
   <script>
@@ -73,7 +85,7 @@
       setBit = (b,s) => { //toogles the bit
         var mask = 1 << b;
         (s==1)? n ^= mask : n &= ~mask ;
-        
+
         console.log(n.toString(2));
         playData(n);
       }
@@ -94,10 +106,10 @@
           audioCtx = new AudioContext()
 
         oscillator = audioCtx.createOscillator()
-        oscillator.frequency.value = 440; //19000
+        oscillator.frequency.value = 19000
 
         oscillatorR = audioCtx.createOscillator()
-        oscillatorR.frequency.value = 440; //19000
+        oscillatorR.frequency.value = 19000
 
         if ('webkitAudioContext' in window) {
           gainNode = audioCtx.createGainNode()
