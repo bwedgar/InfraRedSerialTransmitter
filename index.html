@@ -49,6 +49,11 @@
 
     function ready() {
 
+          cb = () => {
+              console.log("enable touch completed")
+            }
+            Waud.init()
+            Waud.enableTouchUnlock(cb);
 
 
       var n = 0; //byte to send
@@ -182,7 +187,6 @@
 
 
 
-
       setUp = () => {
         setUpDone = true;
         //alert("in set up")
@@ -223,8 +227,8 @@
 
         t = audioCtx.currentTime
       }
-Waud.init()
-        Waud.enableTouchUnlock();
+
+
 
       playPulse = (pulseTime) => {
         t += pulseSeparatorTime
