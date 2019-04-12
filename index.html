@@ -43,7 +43,7 @@
       width: 10%;
     }
   </style>
-
+  <script src="waud.js"></script>
   <script>
     var audioCtx = ""
 
@@ -170,28 +170,7 @@
       pulseSeparatorTime = 0.6 / timeScale
       byte = 0
 
-      function webAudioTouchUnlock(context) {
-        return new Promise(function(resolve, reject) {
-          if (context.state === 'suspended' && 'ontouchstart' in window) {
-            var unlock = function() {
-              context.resume().then(function() {
-                  document.body.removeEventListener('touchstart', unlock);
-                  document.body.removeEventListener('touchend', unlock);
 
-                  resolve(true);
-                },
-                function(reason) {
-                  reject(reason);
-                });
-            };
-
-            document.body.addEventListener('touchstart', unlock, false);
-            document.body.addEventListener('touchend', unlock, false);
-          } else {
-            resolve(false);
-          }
-        });
-      }
 
       //thanks to https://github.com/pavle-goloskokovic/web-audio-touch-unlock/ for this code for ios compatibility
 
@@ -201,18 +180,7 @@
       var audioCtx = new AudioContext();
       //alert(`audio context just defined: ${audioCtx}`)
 
-      var context = new(window.AudioContext || window.webkitAudioContext)();
 
-      webAudioTouchUnlock(audioCtx)
-        .then(function(unlocked) {
-          if (unlocked) {
-            // AudioContext was unlocked from an explicit user action, sound should start playing now
-          } else {
-            // There was no need for unlocking, devices other than iOS
-          }
-        }, function(reason) {
-          console.error(reason);
-        });
 
 
       setUp = () => {
@@ -255,6 +223,8 @@
 
         t = audioCtx.currentTime
       }
+Waud.init()
+        Waud.enableTouchUnlock();
 
       playPulse = (pulseTime) => {
         t += pulseSeparatorTime
@@ -277,7 +247,7 @@
         bitSequence += "00000000".substr(0, 7 - bitSequence.length) // add 0  to make 7 data bits
         bitSequence += "10000"; //add 5 device bits // alert bitSequence
         t = audioCtx.currentTime
-        //playPulse(startPulseTime)
+        //playPulse(startPulseTdddime)
         bitSequence = bitSequence.split("").reverse().join("").toString() // reverse data bits - lowest first
 
         console.log(bitSequence)
