@@ -165,10 +165,10 @@
         audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
         oscillatorRight = audioCtx.createOscillator()
-        oscillatorRight.frequency.value = 440 //19000
+        oscillatorRight.frequency.value = 19000
 
         oscillatorLeft = audioCtx.createOscillator()
-        oscillatorLeft.frequency.value = 440 //19000
+        oscillatorLeft.frequency.value = 19000
 
         gainNodeLeft = audioCtx.createGain()
         gainNodeRight = audioCtx.createGain()
