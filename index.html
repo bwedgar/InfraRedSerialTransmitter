@@ -211,6 +211,10 @@
 
       //console.log(bitSequence)
       str = ""
+      t=audioCtx.currentTime
+       play(logic1PulseTime) //start bit
+       play(logic1PulseTime)
+       play(logic0PulseTime)
       for (bit of bitSequence) {
         if (bit == "1") {
           play(logic1PulseTime)
