@@ -150,6 +150,7 @@
     var gainNodeLeft
     var n
     var audioCtx
+    var t
 
     timeScale = 1000
     startPulseTime = 2.4 / timeScale
@@ -199,16 +200,6 @@
 
     }
 
-
-
-    playPulse = (pulseTime) => {
-      t += pulseSeparatorTime
-      gainNodeRight.gain.setValueAtTime(1.0, t)
-      gainNodeLeft.gain.setValueAtTime(1.0, t)
-      t += pulseTime
-      gainNodeRight.gain.setValueAtTime(0.0, t)
-      gainNodeLeft.gain.setValueAtTime(0.0, t)
-    }
 
     playData = (byte) => {
       bitSequence = (byte).toString(2) // convert number to a binary string
