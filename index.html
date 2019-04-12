@@ -137,22 +137,22 @@
           }
         }
       });
-      b7 = document.getElementById("bit7")
-      b7.addEventListener("click", () => {
-        if (b7.innerHTML == "0") {
-          b7.innerHTML = "1";
-          setBit(7, 1)
-        } else {
-          {
-            b7.innerHTML = "0";
-            setBit(7, 0)
-          }
-        }
-      });
+      // b7 = document.getElementById("bit7")
+      // b7.addEventListener("click", () => {
+      //   if (b7.innerHTML == "0") {
+      //     b7.innerHTML = "1";
+      //     setBit(7, 1)
+      //   } else {
+      //     {
+      //       b7.innerHTML = "0";
+      //       setBit(7, 0)
+      //     }
+      //   }
+      // });
 
-      document.getElementById("setup").addEventListener("click", () => {
-        setUp()
-      });
+      // document.getElementById("setup").addEventListener("click", () => {
+      //   setUp()
+      // });
 
       setBit = (b, s) => { //toogles the bit
         var mask = 1 << b;
@@ -249,7 +249,7 @@
 
         gainNode.connect(merger, 0, 0)
         gainNodeR.connect(merger, 0, 1)
-        //alert(gainNode)
+        alert(gainNode)
 
         merger.connect(audioCtx.destination)
 
@@ -278,6 +278,8 @@
         bitSequence += "10000"; //add 5 device bits // alert bitSequence
         t = audioCtx.currentTime
         //playPulse(startPulseTime)
+        bitSequence = bitSequence.split("").reverse().join("").toString() // reverse data bits - lowest first
+
         console.log(bitSequence)
         str = ""
         for (bit of bitSequence) {
@@ -306,7 +308,7 @@
 <body>
   <div>
 
-    <button id="bit7" class="buttonGroup8">0</button>
+    <!-- <button id="bit7" class="buttonGroup8">0</button> -->
     <button id="bit6" class="buttonGroup8">0</button>
     <button id="bit5" class="buttonGroup8">0</button>
     <button id="bit4" class="buttonGroup8">0</button>
