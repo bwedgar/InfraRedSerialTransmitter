@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="apple-touch-icon" href="launch.png">
   <link rel="apple-touch-startup-image" href="launch.png">
-  <meta name="apple-mobile-web-app-title" content="Push To Telescope">
+  <meta name="apple-mobile-web-app-title"    content="Push To Telescope">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -277,7 +277,7 @@
         bitSequence += "00000000".substr(0, 7 - bitSequence.length) // add 0  to make 7 data bits
         bitSequence += "10000"; //add 5 device bits // alert bitSequence
         t = audioCtx.currentTime
-        //playPulse(startPulseTime)
+        //playPulse(startPulseTdddime)
         bitSequence = bitSequence.split("").reverse().join("").toString() // reverse data bits - lowest first
 
         console.log(bitSequence)
