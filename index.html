@@ -238,11 +238,14 @@
         gainNode.gain.setValueAtTime(0.0, t)
         gainNodeR.gain.setValueAtTime(0.0, t)
       }
-
+      function touchUnlock() {
+            playPulse(logic1PulseTime)
+        }
       playData = (byte) => {
         if (!setUpDone) {
           setUp();
         }
+        touchUnlock()
         //console.log(byte)
         //byte = 35;
         bitSequence = (byte).toString(2) // convert number to a binary string
@@ -258,7 +261,8 @@
         str = ""
         for (bit of bitSequence) {
           if (bit == "1") {
-            playPulse(logic1PulseTime)
+            //playPulse(logic1PulseTime)
+            touchUnlock(logic1PulseTime)
             str += "1"
           } else {
             playPulse(logic0PulseTime)
