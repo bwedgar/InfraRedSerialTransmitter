@@ -190,14 +190,15 @@
         oscillatorLeft.start(t + 0.00002632)
 
       }
-
+if (pulseTime==0) { t = audioCtx.currentTime}
+      else {
       t += pulseSeparatorTime
       gainNodeRight.gain.setValueAtTime(1.0, t)
       gainNodeLeft.gain.setValueAtTime(1.0, t)
       t += pulseTime
       gainNodeRight.gain.setValueAtTime(0.0, t)
       gainNodeLeft.gain.setValueAtTime(0.0, t)
-
+      }
     }
 
 
@@ -208,23 +209,18 @@
       bitSequence += "00000000".substr(0, 7 - bitSequence.length) // add 0  to make 7 data bits
       bitSequence += "10000"; //add 5 device bits // alert bitSequence
       bitSequence = bitSequence.split("").reverse().join("").toString() // reverse data bits - lowest first
-
-      //console.log(bitSequence)
-      str = ""
-      t=audioCtx.currentTime
-       play(logic1PulseTime) //start bit
+       play(0)//start timer
+      play(logic1PulseTime) //start bit
        play(logic1PulseTime)
        play(logic0PulseTime)
       for (bit of bitSequence) {
         if (bit == "1") {
           play(logic1PulseTime)
-          str += "1"
         } else {
           play(logic0PulseTime)
-          str += "0"
         }
       }
-      //console.log(str)
+    
     }
 
     setBit = (b, s) => { //toogles the bit
